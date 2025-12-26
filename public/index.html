@@ -4,30 +4,22 @@
   <meta charset="UTF-8">
   <title>GLOM Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" href="/theme.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<!-- ===== Top Bar ===== -->
 <header class="topbar">
   <div class="brand">GLOM <span>Store</span></div>
 
   <div class="top-actions">
     <div id="userBox"></div>
-
-    <a class="support-btn" href="https://discord.gg/Y9aE4YyCaS" target="_blank">
-      <i class="fa-brands fa-discord"></i> Support
-    </a>
-
     <button class="burger icon-btn" onclick="toggleMenu()">
       <i></i><i></i><i></i>
     </button>
   </div>
 </header>
 
-<!-- ===== Side Menu ===== -->
 <aside id="sideMenu" class="sideMenu">
   <div class="sideHead">
     <div class="sideTitle">القوائم</div>
@@ -36,21 +28,21 @@
     </button>
   </div>
   <div id="categories" class="cats"></div>
+
+  <a class="supportBtn" href="https://discord.gg/Y9aE4YyCaS" target="_blank">
+    <i class="fa-brands fa-discord"></i> Support
+  </a>
 </aside>
 
-<!-- ===== Main ===== -->
 <main class="main">
-  <div class="hint">مرر الماوس على المنتج ✨</div>
   <section id="products" class="grid"></section>
 </main>
 
 <script src="/store.js"></script>
-
 <script>
 function toggleMenu(){
   document.getElementById("sideMenu").classList.toggle("show");
 }
 </script>
-
 </body>
 </html>
