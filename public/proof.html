@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>رفع الإثبات</title>
+  <link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+
+<h2>رفع إثبات التحويل</h2>
+
+<form id="f">
+  <input type="file" name="proof" required />
+  <button>إرسال</button>
+</form>
+
+<script>
+const order = new URLSearchParams(location.search).get("order");
+
+f.onsubmit = async e => {
+  e.preventDefault();
+  const fd = new FormData(f);
+  await fetch(`/api/orders/${order}/proof`, {
+    method: "POST",
+    body: fd
+  });
+  alert("تم إرسال الإثبات");
+};
+</script>
+</body>
+</html>
