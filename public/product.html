@@ -1,60 +1,105 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>المنتج | GLOM</title>
-  <link rel="stylesheet" href="/theme.css">
+  <meta charset="UTF-8" />
+  <title>المنتج | GLOM Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/theme.css" />
 </head>
 <body>
 
 <div id="cursor"></div>
 
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar">
+  <div class="sideTop">
+    <div class="sideTitle">القوائم</div>
+    <button class="iconX" onclick="toggleSidebar()">×</button>
+  </div>
+  <a href="/">🛒 المتجر</a>
+  <a href="/account.html">👤 حسابي</a>
+  <a href="https://discord.gg/Y9aE4YyCaS" target="_blank">🆘 Support</a>
+</aside>
+
 <header class="navbar">
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
   <div class="logo">GLOM<span>STORE</span></div>
+  <a class="login-btn" href="/account.html">تسجيل الدخول</a>
 </header>
 
-<div class="product-page">
-  <div class="images" id="images"></div>
+<main class="container">
+  <div class="productLayout">
+    <!-- LEFT: Gallery -->
+    <section class="galleryCard">
+      <div class="galleryMain">
+        <img id="mainImg" src="" alt="product">
+      </div>
 
-  <div class="info">
-    <h1 id="title"></h1>
-    <p id="desc"></p>
+      <div id="thumbs" class="thumbs">
+        <!-- thumbs -->
+      </div>
+    </section>
 
-    <select id="plan"></select>
-    <input id="coupon" placeholder="كوبون خصم (اختياري)">
-    <button onclick="checkout()">إتمام الطلب</button>
+    <!-- RIGHT: Info -->
+    <section class="infoCard">
+      <div class="productHead">
+        <h1 id="pTitle" class="pTitle">...</h1>
+        <div id="pBadge" class="badge">Loading</div>
+      </div>
+
+      <p id="pDesc" class="pDesc"></p>
+
+      <div class="divider"></div>
+
+      <div class="row">
+        <div class="lbl">اختيار الفترة</div>
+        <div class="control">
+          <div id="planList" class="planList"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="lbl">كوبون خصم</div>
+        <div class="control">
+          <input id="coupon" class="inp" placeholder="مثال: GLOM10">
+          <div id="couponHint" class="small hint2"></div>
+        </div>
+      </div>
+
+      <div class="priceBox">
+        <div class="priceLine">
+          <span>السعر</span>
+          <b id="basePrice">$0</b>
+        </div>
+        <div class="priceLine">
+          <span>الخصم</span>
+          <b id="discountPrice">$0</b>
+        </div>
+        <div class="priceLine total">
+          <span>الإجمالي</span>
+          <b id="finalPrice">$0</b>
+        </div>
+      </div>
+
+      <button id="buyBtn" class="btnPrimary">شراء الآن</button>
+
+      <div class="small note">
+        بعد إنشاء الطلب سيتم تحويلك لصفحة الشيك آوت لرفع إثبات التحويل (Upload).
+      </div>
+    </section>
   </div>
-</div>
+</main>
 
+<script src="/product.js"></script>
 <script>
-const id = new URLSearchParams(location.search).get("id");
-let product;
+  function toggleSidebar(){ document.getElementById("sidebar").classList.toggle("open"); }
 
-fetch("/api/store/product/" + id)
-  .then(r => r.json())
-  .then(p => {
-    product = p;
-    title.innerText = p.title;
-    desc.innerText = p.description;
-    images.innerHTML = p.images.map(i => `<img src="${i}">`).join("");
-    plan.innerHTML = p.plans.map(pl =>
-      `<option value="${pl.name}">${pl.name} – $${pl.price}</option>`
-    ).join("");
+  // mouse circle
+  document.addEventListener("mousemove", e=>{
+    const c=document.getElementById("cursor");
+    if(!c) return;
+    c.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;
   });
-
-async function checkout() {
-  const res = await fetch("/api/checkout", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      productId: product._id,
-      planName: plan.value,
-      couponCode: coupon.value
-    })
-  });
-  const data = await res.json();
-  location.href = `/proof.html?order=${data.orderId}`;
-}
 </script>
 </body>
 </html>
