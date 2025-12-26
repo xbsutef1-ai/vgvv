@@ -2,74 +2,28 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>GLOM Dashboard</title>
+  <title>Dashboard | GLOM</title>
   <link rel="stylesheet" href="/theme.css">
 </head>
-<body class="dashboard">
+<body>
 
-<header class="dash-top">
-  <div class="dash-title">GLOM Dashboard</div>
-  <button onclick="logout()">تسجيل خروج</button>
-</header>
+<nav class="navbar">
+  <div class="logo">GLOM<span>ADMIN</span></div>
+  <button class="btn-sm" onclick="logout()">خروج</button>
+</nav>
 
-<div class="dash-layout">
+<div class="dashboard">
+  <h2>لوحة التحكم</h2>
 
-  <aside class="dash-menu">
-    <button onclick="showTab('orders')">📦 الطلبات</button>
-    <button onclick="showTab('products')">🛒 المنتجات</button>
-    <button onclick="showTab('coupons')">🎟️ الكوبونات</button>
-  </aside>
+  <div class="stats">
+    <div class="stat" id="sTotal"></div>
+    <div class="stat" id="sPending"></div>
+    <div class="stat" id="sApproved"></div>
+    <div class="stat" id="sRejected"></div>
+  </div>
 
-  <main class="dash-content">
-
-    <!-- ORDERS -->
-    <section id="tab-orders" class="tab">
-      <h2>الطلبات</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>المنتج</th>
-            <th>الخطة</th>
-            <th>السعر</th>
-            <th>الحالة</th>
-            <th>إثبات</th>
-            <th>إجراء</th>
-          </tr>
-        </thead>
-        <tbody id="ordersTable"></tbody>
-      </table>
-    </section>
-
-    <!-- PRODUCTS -->
-    <section id="tab-products" class="tab hidden">
-      <h2>المنتجات</h2>
-
-      <input id="pTitle" placeholder="اسم المنتج">
-      <textarea id="pDesc" placeholder="الوصف"></textarea>
-      <input id="pImage" placeholder="رابط صورة">
-      <button onclick="addProduct()">إضافة منتج</button>
-
-      <div id="productsList"></div>
-    </section>
-
-    <!-- COUPONS -->
-    <section id="tab-coupons" class="tab hidden">
-      <h2>الكوبونات</h2>
-
-      <input id="cCode" placeholder="CODE">
-      <select id="cType">
-        <option value="percent">نسبة %</option>
-        <option value="amount">مبلغ</option>
-      </select>
-      <input id="cValue" placeholder="القيمة">
-      <input id="cExpire" type="date">
-      <button onclick="addCoupon()">إضافة كوبون</button>
-
-      <div id="couponsList"></div>
-    </section>
-
-  </main>
-
+  <h3>الطلبات</h3>
+  <div id="orders"></div>
 </div>
 
 <script src="/admin.js"></script>
