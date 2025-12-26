@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>GLOM Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/theme.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/theme.css" />
 </head>
 <body>
 
-<div class="cursor-glow"></div>
+<div id="cursor"></div>
 
-<header class="topbar">
-  <div class="logo">GLOM <span>STORE</span></div>
+<header class="navbar">
+  <div class="logo">GLOM<span>STORE</span></div>
+
+  <nav class="nav-links">
+    <a href="/">المتجر</a>
+    <a href="/account.html">تسجيل الدخول</a>
+    <a href="https://discord.gg/Y9aE4YyCaS" target="_blank" class="support">
+      Support
+    </a>
+  </nav>
 </header>
 
-<main class="container">
-  <div id="products" class="products-grid"></div>
+<main>
+  <section class="products" id="products">
+    <!-- المنتجات تظهر هنا -->
+  </section>
 </main>
 
-<!-- Product Page -->
-<div id="productModal" class="modal hidden">
-  <div class="modal-content">
-    <span class="close" onclick="closeProduct()">×</span>
-    <div class="product-page">
-      <div class="product-images" id="productImages"></div>
-      <div class="product-info">
-        <h2 id="pTitle"></h2>
-        <p id="pDesc"></p>
-
-        <select id="planSelect"></select>
-        <button onclick="checkout()" class="btn">شراء</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script src="/store.js"></script>
+<script>
+/* دائرة الماوس */
+document.addEventListener("mousemove", e => {
+  const c = document.getElementById("cursor");
+  c.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+});
+</script>
 </body>
 </html>
