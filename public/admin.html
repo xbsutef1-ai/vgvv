@@ -2,29 +2,78 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard | GLOM</title>
+  <title>GLOM Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/theme.css">
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="logo">GLOM<span>ADMIN</span></div>
-  <button class="btn-sm" onclick="logout()">خروج</button>
-</nav>
+<header class="topbar">
+  <div class="brand">GLOM <span>Admin</span></div>
+  <button class="btn ghost" onclick="logout()">Logout</button>
+</header>
 
-<div class="dashboard">
-  <h2>لوحة التحكم</h2>
+<main class="adminWrap">
+  <aside class="adminSide">
+    <button onclick="showTab('overview')" class="adminBtn active">Overview</button>
+    <button onclick="showTab('products')" class="adminBtn">Products</button>
+    <button onclick="showTab('orders')" class="adminBtn">Orders</button>
+    <button onclick="showTab('coupons')" class="adminBtn">Coupons</button>
+  </aside>
 
-  <div class="stats">
-    <div class="stat" id="sTotal"></div>
-    <div class="stat" id="sPending"></div>
-    <div class="stat" id="sApproved"></div>
-    <div class="stat" id="sRejected"></div>
-  </div>
+  <section class="adminMain">
 
-  <h3>الطلبات</h3>
-  <div id="orders"></div>
-</div>
+    <!-- OVERVIEW -->
+    <div id="tab-overview" class="adminTab">
+      <h2>Overview</h2>
+      <div class="stats">
+        <div class="statBox">Total Orders<br><b id="stTotal">-</b></div>
+        <div class="statBox">Approved<br><b id="stApproved">-</b></div>
+        <div class="statBox">Pending<br><b id="stPending">-</b></div>
+        <div class="statBox">Rejected<br><b id="stRejected">-</b></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="tab-products" class="adminTab hidden">
+      <h2>Products</h2>
+
+      <div class="card">
+        <input id="pTitle" placeholder="Title">
+        <textarea id="pDesc" placeholder="Description"></textarea>
+        <input id="pImage" placeholder="Image URL">
+        <button class="btn" onclick="addProduct()">Add Product</button>
+      </div>
+
+      <div id="productList"></div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="tab-orders" class="adminTab hidden">
+      <h2>Orders</h2>
+      <div id="orderList"></div>
+    </div>
+
+    <!-- COUPONS -->
+    <div id="tab-coupons" class="adminTab hidden">
+      <h2>Coupons</h2>
+
+      <div class="card">
+        <input id="cCode" placeholder="CODE">
+        <select id="cType">
+          <option value="percent">Percent</option>
+          <option value="amount">Amount</option>
+        </select>
+        <input id="cValue" placeholder="Value">
+        <input id="cExpire" type="date">
+        <button class="btn" onclick="addCoupon()">Add Coupon</button>
+      </div>
+
+      <div id="couponList"></div>
+    </div>
+
+  </section>
+</main>
 
 <script src="/admin.js"></script>
 </body>
