@@ -2,25 +2,59 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>Product</title>
+  <title>المنتج | GLOM</title>
   <link rel="stylesheet" href="/theme.css">
 </head>
 <body>
 
-<div class="productPage">
+<div id="cursor"></div>
+
+<header class="navbar">
+  <div class="logo">GLOM<span>STORE</span></div>
+</header>
+
+<div class="product-page">
   <div class="images" id="images"></div>
 
   <div class="info">
     <h1 id="title"></h1>
     <p id="desc"></p>
 
-    <select id="planSelect"></select>
-    <div class="price" id="price"></div>
-
-    <button onclick="buy()">شراء</button>
+    <select id="plan"></select>
+    <input id="coupon" placeholder="كوبون خصم (اختياري)">
+    <button onclick="checkout()">إتمام الطلب</button>
   </div>
 </div>
 
-<script src="/product.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get("id");
+let product;
+
+fetch("/api/store/product/" + id)
+  .then(r => r.json())
+  .then(p => {
+    product = p;
+    title.innerText = p.title;
+    desc.innerText = p.description;
+    images.innerHTML = p.images.map(i => `<img src="${i}">`).join("");
+    plan.innerHTML = p.plans.map(pl =>
+      `<option value="${pl.name}">${pl.name} – $${pl.price}</option>`
+    ).join("");
+  });
+
+async function checkout() {
+  const res = await fetch("/api/checkout", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      productId: product._id,
+      planName: plan.value,
+      couponCode: coupon.value
+    })
+  });
+  const data = await res.json();
+  location.href = `/proof.html?order=${data.orderId}`;
+}
+</script>
 </body>
 </html>
