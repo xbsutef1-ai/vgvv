@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout | GLOM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/theme.css" />
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<header class="navbar">
+  <a class="menu-btn" href="/" style="text-decoration:none;">←</a>
+  <div class="logo">GLOM<span>CHECKOUT</span></div>
+  <a class="login-btn" href="/account.html">حسابي</a>
+</header>
+
+<main class="container">
+  <div class="checkoutWrap">
+    <section class="infoCard">
+      <h2 class="secTitle">حالة الطلب</h2>
+      <div class="orderLine"><span>رقم الطلب</span><b id="orderId">...</b></div>
+      <div class="orderLine"><span>الحالة</span><b id="orderStatus" class="badge">...</b></div>
+      <div class="small note2" id="statusHint"></div>
+    </section>
+
+    <section class="infoCard">
+      <h2 class="secTitle">رفع إثبات التحويل (Upload)</h2>
+
+      <div class="small note2">
+        ارفع صورة الإثبات مباشرة. بعد الإرسال يوصل إشعار للديسكورد (orders) مع زر قبول/رفض.
+      </div>
+
+      <form id="proofForm" class="proofForm">
+        <label class="fileBox">
+          <input id="proofFile" type="file" name="proof" accept="image/*" required />
+          <div class="fileUI">
+            <b>اختر صورة الإثبات</b>
+            <span id="fileName" class="small">لا يوجد ملف</span>
+          </div>
+        </label>
+
+        <button id="sendBtn" class="btnPrimary" type="submit">إرسال الإثبات</button>
+        <div id="msg" class="small"></div>
+      </form>
+
+      <div class="divider"></div>
+
+      <div class="small note">
+        بعد القبول يتم **تسليم المفتاح تلقائيًا** (حسب نظامك في الـ backend).
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="/checkout.js"></script>
+<script>
+  document.addEventListener("mousemove", e=>{
+    const c=document.getElementById("cursor");
+    if(!c) return;
+    c.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;
+  });
+</script>
+</body>
+</html>
